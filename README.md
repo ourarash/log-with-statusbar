@@ -8,7 +8,7 @@ A light weight logger with a status bar on the bottom that does not disappear wi
 
 # Install
 ```bash
-npm install ololog
+npm install log-with-statusbar
 ```
 # Usage
 ```javascript

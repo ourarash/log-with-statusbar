@@ -55,9 +55,7 @@ log.methods({
     );
     g_statusTextArray = arrayOfStatusLines;
   }
-  // configure(obj){
-  //    return this.configure (obj) ;
-  // }
+
 });
 
 module.exports = log;
