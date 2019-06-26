@@ -9,9 +9,13 @@
  * @module testModule
  */
 const ansi = require("ansi"),
-  cursor = ansi(process.stdout),
-  ololog = require("ololog").configure({ locate: false }),
-  assert = require("assert");
+  assert = require("assert"),
+  cursor = ansi(process.stdout);
+
+var ololog = require("ololog").configure({
+  locate: false,
+  tag:false
+});
 
 var g_statusTextArray = [
   `Call log.setStatusBarText(["Your Text"]) to set this line.`
@@ -51,6 +55,9 @@ log.methods({
     );
     g_statusTextArray = arrayOfStatusLines;
   }
+  // configure(obj){
+  //    return this.configure (obj) ;
+  // }
 });
 
 module.exports = log;

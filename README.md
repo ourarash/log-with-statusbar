@@ -23,16 +23,15 @@ log.setStatusBarText([
 ]);
 
 // Normal scrollable system logs
-log(`This is normal scrollable log`);
+log(`This is a normal scrollable log`);
 ```
 
-# Example
+# Another Example
 ```javascript
 
 const log = require("./index.js");
 let i = 0;
 let maxCount = 20;
-
 
 setInterval(() => {
   var date = new Date();
@@ -48,7 +47,6 @@ setInterval(() => {
   }
   if (i == maxCount) {
     i = 0;
-    
   }
 
 }, 100);

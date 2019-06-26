@@ -24,12 +24,14 @@ var pBar = progressString({
     return complete + "▒" + incomplete ;
   }
 });
-
-
+log.configure({
+  tag: true,
+  locate:false,
+})
 setInterval(() => {
   var date = new Date();
   log(date);
-  log.info(`Hi this is log line ${i++}`);
+  log.info(`Hi this is log line ${i++}: `, i);
   log.info(`Here is another log line ${i}`);
   log.info(`-----------------------------------------------------------------`);
   if(i<5){
@@ -40,7 +42,6 @@ setInterval(() => {
   }
   if (i == maxCount) {
     i = 0;
-    
   }
 
 }, 100);
