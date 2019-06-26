@@ -25,6 +25,7 @@ var pBar = progressString({
   }
 });
 
+
 setInterval(() => {
   var date = new Date();
   log(date);
