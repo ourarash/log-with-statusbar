@@ -1,0 +1,33 @@
+{
+  "name": "log-with-statusbar",
+  "version": "1.0.0",
+  "description": "A light weight logger with a status bar on the bottom that does not disappear with scrolling",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ourarash/log-with-statusbar.git"
+  },
+  "keywords": [
+    "log",
+    "logger",
+    "statusbar",
+    "scroll",
+    "split",
+    "screen",
+    "console"
+  ],
+  "author": "Ari Saif",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ourarash/log-with-statusbar/issues"
+  },
+  "homepage": "https://github.com/ourarash/log-with-statusbar#readme",
+  "dependencies": {
+    "ansi": "^0.3.1",
+    "ololog": "^1.1.131",
+    "progress-string": "^1.2.2"
+  }
+}
