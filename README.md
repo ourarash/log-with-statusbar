@@ -5,6 +5,8 @@ A light weight logger with a status bar on the bottom that does not disappear wi
 - [x] Supports multiple non-scrollable status lines
 - [x] Integrates with [ololog](https://github.com/xpl/ololog)
 
+![alt text](https://raw.githubusercontent.com/ourarash/log-with-statusbar/master/screenshot.gif)
+
 
 # Install
 ```bash
