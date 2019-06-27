@@ -1,6 +1,9 @@
 # log-with-statusbar
 A light weight logger with a status bar on the bottom that does not disappear with scrolling.
 
+ [![NPM](https://badge.fury.io/js/log-with-statusbar.svg)](https://www.npmjs.com/package/log-with-statusbar)
+
+
 - [x] Prints system log while showing a status line message at the bottom without scrolling
 - [x] Supports multiple non-scrollable status lines
 - [x] Integrates with [ololog](https://github.com/xpl/ololog)
