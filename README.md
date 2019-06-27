@@ -14,7 +14,7 @@ npm install log-with-statusbar
 ```
 # Usage
 ```javascript
-const log = require("./index.js")();
+const log = require("log-with-statusbar")();
 
 // Set the bottom status lines
 // Each line is an entry of the array
@@ -37,7 +37,7 @@ You can set the following:
 - `ololog_configure`: [ololog](https://github.com/xpl/ololog) configurations
 
 ```javascript
-const log = require("./index.js")({
+const log = require("log-with-statusbar")({
   ololog_configure: {
     locate: false,
     tag: true
