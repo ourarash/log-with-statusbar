@@ -3,7 +3,7 @@ A light weight logger with a status bar on the bottom that does not disappear wi
 
 - [x] Prints system log while showing a status line message at the bottom without scrolling
 - [x] Supports multiple non-scrollable status lines
-- [x] Integrates with [Ololog](https://github.com/xpl/ololog)
+- [x] Integrates with [ololog](https://github.com/xpl/ololog)
 
 
 # Install
@@ -12,8 +12,7 @@ npm install log-with-statusbar
 ```
 # Usage
 ```javascript
-
-const log = require("./index.js");
+const log = require("./index.js")();
 
 // Set the bottom status lines
 // Each line is an entry of the array
@@ -23,32 +22,24 @@ log.setStatusBarText([
 ]);
 
 // Normal scrollable system logs
-log(`This is a normal scrollable log`);
-```
-
-# Another Example
-```javascript
-
-const log = require("./index.js");
-let i = 0;
-let maxCount = 20;
-
+let i=0;
 setInterval(() => {
-  var date = new Date();
-  log(date);
-  log.info(`Hi this is log line ${i++}`);
-  log.info(`Here is another log line ${i}`);
-  log.info(`-----------------------------------------`);
-  if(i<5){
-    log.setStatusBarText([`Complete!`]);
-  } else{
-    log.setStatusBarText([`Progressing: ${(i)}`]);
-
-  }
-  if (i == maxCount) {
-    i = 0;
-  }
-
-}, 100);
+  log.info(`This is a normal scrollable log ${i++}`);  
+}, 1);
 
 ```
+
+# Configurations
+You can set the following:
+
+- `ololog_configure`: [ololog](https://github.com/xpl/ololog) configurations
+
+```javascript
+const log = require("./index.js")({
+  ololog_configure: {
+    locate: false,
+    tag: true
+  }
+});
+```
+

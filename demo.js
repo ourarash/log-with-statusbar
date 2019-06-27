@@ -1,15 +1,23 @@
 /**
- * To run: 
+ * To run:
  *  npm install progress-string
  *  node demo.js
  */
-const log = require("./index.js");
+const log = require("./index.js")({
+  ololog_configure: {
+    locate: false,
+    tag: true
+  }
+});
+
 var progressString;
 try {
-   progressString = require("progress-string");
+  progressString = require("progress-string");
 } catch (error) {
-  console.log(`Please run "npm install progress-string" before running the demo.`);
-  process.exit();  
+  console.log(
+    `Please run "npm install progress-string" before running the demo.`
+  );
+  process.exit();
 }
 
 let i = 0;
@@ -21,27 +29,25 @@ var pBar = progressString({
   complete: "█",
   incomplete: "░",
   style: function(complete, incomplete) {
-    return complete + "▒" + incomplete ;
+    return complete + "▒" + incomplete;
   }
 });
 log.configure({
   tag: true,
-  locate:false,
-})
+  locate: false
+});
 setInterval(() => {
   var date = new Date();
   log(date);
   log.info(`Hi this is log line ${i++}: `, i);
   log.info(`Here is another log line ${i}`);
   log.info(`-----------------------------------------------------------------`);
-  if(i<5){
+  if (i < 5) {
     log.setStatusBarText([`Complete!`]);
-  } else{
+  } else {
     log.setStatusBarText([`Progress: ${pBar(i)}`]);
-
   }
   if (i == maxCount) {
     i = 0;
   }
-
 }, 100);
