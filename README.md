@@ -6,9 +6,9 @@ A light weight logger with a status bar on the bottom that does not disappear wi
 
 - [x] Prints system log while showing a status line message at the bottom without scrolling
 - [x] Supports multiple non-scrollable status lines
-- [x] Integrates with [ololog](https://github.com/xpl/ololog)
+- [x] Based on [ololog](https://github.com/xpl/ololog). All features of ololog are available.
 
-![alt text](https://raw.githubusercontent.com/ourarash/log-with-statusbar/master/screenshot.gif)
+![Demo picture](https://raw.githubusercontent.com/ourarash/log-with-statusbar/master/screenshot.gif)
 
 
 # Install
@@ -37,7 +37,7 @@ setInterval(() => {
 # Configurations
 You can set the following:
 
-- `ololog_configure`: [ololog](https://github.com/xpl/ololog) configurations
+- `ololog_configure`: [ololog](https://github.com/xpl/ololog) configurations. All features of ololog are available. Please refer to [these documentations](https://github.com/xpl/ololog) for details. 
 
 ```javascript
 const log = require("log-with-statusbar")({
