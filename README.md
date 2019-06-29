@@ -62,9 +62,9 @@ const log = require("log-with-statusbar")({
 });
 ```
 
-## Verbosity
+## Bonus: Verbosity 
 
-You can also attach a verbosity level to each scrollable log call. Each log call will print out its output only if the attached verbosity level is higher than the global minimum verbosity leve:
+You can attach a verbosity level to each scrollable log call. Each log call will print out its output only if the attached verbosity level is higher than the global minimum verbosity leve:
 
 - Calling `log.verbosity(n).info("Test");` attaches verbosity level `n` to this call.
 - Calling `log.info("Test");` attaches verbosity the default verbosity level to this call.
