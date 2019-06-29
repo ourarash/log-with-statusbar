@@ -74,7 +74,7 @@ Below is an example:
 ```javascript
 // We only print if verbosity is less than or equal minVerbosity
 
-var log = require("./index.js")({
+var log = require("log-with-statusbar")({
   minVerbosity: 1,  //Minimum verbosity level
   verbosity: 1,     //Default verbosity level
   enableStatusBar: false
@@ -98,7 +98,7 @@ log.verbosity(3).info("Even less important line 2");
 And here is a more complicated example:
 
 ```javascript
-var log = require("./index.js")({
+var log = require("log-with-statusbar")({
   minVerbosity: 1,      //Minimum verbosity level
   verbosity: 1,         //Default verbosity level
   enableStatusBar: false
