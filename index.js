@@ -64,8 +64,7 @@ var default_ololog_methods = {
   },
   minVerbosity(n) {
     return this.configure({ tag: { minVerbosity: n } });
-  },
-  
+  }
 };
 //-----------------------------------------------------------------------------
 var ololog = require("ololog").configure(default_ololog_configure);
@@ -76,20 +75,29 @@ var defaultConfig = {
   ololog_methods: default_ololog_methods,
   initialStatusTextArray: [
     `Call log.setStatusBarText(["Your Text"]) to set this line.`
-  ]
+  ],
+  minVerbosity: 1,  //Minimum verbosity level
+  verbosity: 1,     //Default verbosity level
 };
 //-----------------------------------------------------------------------------
 module.exports = function(config = defaultConfig) {
   var log = ololog.configure(
     config.ololog_configure || defaultConfig.ololog_configure
   );
+
   var methods = config.ololog_methods || defaultConfig.ololog_methods;
+
   statusTextArray =
     config.initialStatusTextArray || defaultConfig.initialStatusTextArray;
+
   let enableStatusBar = config.enableStatusBar;
   if (enableStatusBar === undefined || enableStatusBar === null) {
     enableStatusBar = defaultConfig.enableStatusBar;
   }
+
+  let minVerbosity = config.minVerbosity || defaultConfig.minVerbosity;
+  let verbosity = config.verbosity || defaultConfig.verbosity;
+
 
   if (enableStatusBar) {
     log = log.configure({
@@ -111,7 +119,11 @@ module.exports = function(config = defaultConfig) {
       }
     });
   }
+
   log.methods(methods);
+  log = log.minVerbosity(minVerbosity);
+  log = log.verbosity(verbosity);
+
 
   return log;
 };
