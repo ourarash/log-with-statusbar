@@ -37,6 +37,17 @@ setInterval(() => {
 }, 1);
 ```
 
+# Examples
+Several examples are available in `examples` folder
+
+# Other Functions
+```javascript
+// Adds one line to the status bar (See examples/push_pop_demo.js)
+log.statusBarTextPush(`Adding one line to the status bar`);
+
+// Adds one line to the status bar (See examples/push_pop_demo.js)
+log.statusBarTextPop(`Remove the last line from the status bar`);
+```
 # Configurations
 
 If you just want to use the status bar and also setup ololog parameters, you can set the following:

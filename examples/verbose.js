@@ -1,4 +1,4 @@
-var log = require("./index.js")({
+var log = require("../index.js")({
   minVerbosity: 1,  //Minimum verbosity level
   verbosity: 1,     //Default verbosity level
   enableStatusBar: false

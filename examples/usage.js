@@ -1,4 +1,4 @@
-const log = require("./index.js")();
+const log = require("../index.js")();
 
 // Set the bottom status lines
 // Each line is an entry of the array

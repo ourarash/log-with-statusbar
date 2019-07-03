@@ -3,7 +3,7 @@
  *  npm install progress-string
  *  node demo.js
  */
-const log = require("./index.js")({
+const log = require("../index.js")({
   ololog_configure: {
     locate: false,
     tag: true
@@ -36,12 +36,19 @@ log.configure({
   tag: true,
   locate: false
 });
+
+log(`-----------------------------------------------------------------`);
+var date = new Date();
+log.info(date);
+log.info(`Generating randome numbers`);
+log(`-----------------------------------------------------------------`);
+
 setInterval(() => {
-  var date = new Date();
-  log(date);
-  log.info(`Hi this is log line ${i++}: `, i);
-  log.info(`Here is another log line ${i}`);
-  log.info(`-----------------------------------------------------------------`);
+  // This line will scroll
+  log.info(Math.round(Math.random() * 1000 * 1000 * 1000));
+  i++;
+
+  // The following will not scroll
   if (i < 5) {
     log.setStatusBarText([`Complete!`]);
   } else {

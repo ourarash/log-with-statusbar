@@ -15,6 +15,7 @@ const ansi = require("ansi"),
   bullet = require("string.bullet");
 
 var statusTextArray;
+var linesToDelete = 0;
 //-----------------------------------------------------------------------------
 var default_ololog_configure = {
   locate: false,
@@ -59,9 +60,49 @@ var default_ololog_methods = {
     );
     statusTextArray = arrayOfStatusLines;
   },
+  /**
+   *
+   * Returns the current status bar
+   * @returns {Array}
+   */
+  getStatusBarText() {
+    return statusTextArray;
+  },
+  /**
+   *
+   * Adds one line to the status bar
+   * @returns null
+   */
+  statusBarTextPush(text) {
+    if (statusTextArray && Array.isArray(statusTextArray)) {
+      statusTextArray.push(text);
+    } else {
+      statusTextArray = [text];
+    }
+  },
+  /**
+   *
+   * Remove one line to the status bar
+   * @returns null
+   */
+  statusBarTextPop() {
+    if (statusTextArray && Array.isArray(statusTextArray)) {
+      statusTextArray.pop();
+    }
+  },
+  /**
+   * Sets the default verbosity
+   * We only print if verbosity is less than or equal minVerbosity
+   * @param {Number} n
+   */
   verbosity(n) {
     return this.configure({ tag: { verbosity: n } });
   },
+  /**
+   * Sets the minimum verbosity
+   * We only print if verbosity is less than or equal minVerbosity
+   * @param {Number} n
+   */
   minVerbosity(n) {
     return this.configure({ tag: { minVerbosity: n } });
   }
@@ -76,8 +117,8 @@ var defaultConfig = {
   initialStatusTextArray: [
     `Call log.setStatusBarText(["Your Text"]) to set this line.`
   ],
-  minVerbosity: 1,  //Minimum verbosity level
-  verbosity: 1,     //Default verbosity level
+  minVerbosity: 1, //Minimum verbosity level
+  verbosity: 1 //Default verbosity level
 };
 //-----------------------------------------------------------------------------
 module.exports = function(config = defaultConfig) {
@@ -98,14 +139,13 @@ module.exports = function(config = defaultConfig) {
   let minVerbosity = config.minVerbosity || defaultConfig.minVerbosity;
   let verbosity = config.verbosity || defaultConfig.verbosity;
 
-
   if (enableStatusBar) {
     log = log.configure({
       "+render"(text) {
-        statusTextArray.forEach((l, i) => {
+        for (let index = 0; index < linesToDelete; index++) {
           cursor.up();
           cursor.eraseLine();
-        });
+        }
         return text;
       },
       "render+"(text) {
@@ -115,6 +155,7 @@ module.exports = function(config = defaultConfig) {
           k = k.substring(0, process.stdout.columns);
           console.log(k);
         });
+        linesToDelete = statusTextArray.length;
         return text;
       }
     });
@@ -123,7 +164,6 @@ module.exports = function(config = defaultConfig) {
   log.methods(methods);
   log = log.minVerbosity(minVerbosity);
   log = log.verbosity(verbosity);
-
 
   return log;
 };
