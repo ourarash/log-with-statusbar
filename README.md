@@ -38,7 +38,7 @@ setInterval(() => {
 ```
 
 # Examples
-Several examples are available in `examples` folder
+Several examples are available in [examples](examples) folder
 
 # Other Functions
 ```javascript
