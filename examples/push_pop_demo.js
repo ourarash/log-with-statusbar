@@ -49,15 +49,11 @@ setInterval(() => {
   log.info(Math.round(Math.random() * 1000 * 1000 * 1000));
   i++;
   log.setStatusBarText([]);
-  if (i < 5) {
-    log.statusBarTextPush(`Start...`);
-  } else {
-    log.statusBarTextPush(
-      `Generating random numbers: ${pBar(i)}:`+ `${Math.round(
-        (i / maxCount) * 100
-      ).toString()}%`.green
-    );
-  }
+  log.statusBarTextPush(
+    `Generating random numbers: ${pBar(i)}:`+ `${Math.round(
+      (i / maxCount) * 100
+    ).toString()}%`.green
+  );
 
   if (i > maxCount / 4) {
     log.statusBarTextPush("Pushing a line at 25%!".red);
