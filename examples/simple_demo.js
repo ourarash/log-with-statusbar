@@ -1,5 +1,5 @@
 
-const log = require("./index.js")({
+const log = require("../index.js")({
   ololog_configure: {
     locate: false,
     tag: true

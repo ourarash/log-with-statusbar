@@ -38,9 +38,13 @@ setInterval(() => {
 ```
 
 # Examples
+
 Several examples are available in [examples](examples) folder
 
 # Other Functions
+## Push and Pop
+You can add or remove lines to the status bar
+
 ```javascript
 // Adds one line to the status bar (See examples/push_pop_demo.js)
 log.statusBarTextPush(`Adding one line to the status bar`);
@@ -48,6 +52,23 @@ log.statusBarTextPush(`Adding one line to the status bar`);
 // Adds one line to the status bar (See examples/push_pop_demo.js)
 log.statusBarTextPop(`Remove the last line from the status bar`);
 ```
+## [Enable and Disable](#enable-disable) 
+You can enable/disable the status bar or both scrollable log and status bar.
+
+```javascript
+// Disables the status bar
+log.disableStatusBar();
+
+// Enables the status bar
+log.enableStatusBar();
+
+// Completely disables logging both scrollable and status bar
+log = log.disable();
+
+// Completely enables logging both scrollable and status bar
+log = log.enable();
+```
+
 # Configurations
 
 If you just want to use the status bar and also setup ololog parameters, you can set the following:
@@ -64,6 +85,7 @@ const log = require("log-with-statusbar")({
 `ololog_configure`: sets the [ololog](https://github.com/xpl/ololog) configurations. All features of ololog are available.
 
 ## Status bar configurations:
+
 The following settings are for the status bar behavior:
 
 ```javascript
@@ -73,21 +95,21 @@ const log = require("log-with-statusbar")({
 });
 ```
 
-## Bonus: Verbosity 
-
-You can attach a verbosity level to each scrollable log call. Each log call will print out its output only if the attached verbosity level is higher than the global minimum verbosity leve:
+## Bonus: Verbosity
+Besides globally [enabling and disabling](#enable-disable) the log, you can attach a verbosity level to each scrollable log call. Each log call will print out its output only if the attached verbosity level is higher than the global minimum verbosity leve:
 
 - Calling `log.verbosity(n).info("Test");` attaches verbosity level `n` to this call.
 - Calling `log.info("Test");` attaches verbosity the default verbosity level to this call.
 - Calling `log = log.minVerbosity(1000);` will change the global minimum verbosity level
 
 Below is an example:
+
 ```javascript
 // We only print if verbosity is less than or equal minVerbosity
 
 var log = require("log-with-statusbar")({
-  minVerbosity: 1,  //Minimum verbosity level
-  verbosity: 1,     //Default verbosity level
+  minVerbosity: 1, //Minimum verbosity level
+  verbosity: 1, //Default verbosity level
   enableStatusBar: false
 });
 
@@ -103,15 +125,14 @@ log = log.minVerbosity(3);
 log("This prints because (1 <= 3)= true");
 log.verbosity(2).info("Less important line 1");
 log.verbosity(3).info("Even less important line 2");
-
 ```
 
 And here is a more complicated example:
 
 ```javascript
 var log = require("log-with-statusbar")({
-  minVerbosity: 1,      //Minimum verbosity level
-  verbosity: 1,         //Default verbosity level
+  minVerbosity: 1, //Minimum verbosity level
+  verbosity: 1, //Default verbosity level
   enableStatusBar: false
 });
 

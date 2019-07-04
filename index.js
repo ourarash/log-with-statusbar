@@ -16,6 +16,7 @@ const ansi = require("ansi"),
 
 var statusTextArray;
 var linesToDelete = 0;
+var g_enableStatusBar = true;
 //-----------------------------------------------------------------------------
 var default_ololog_configure = {
   locate: false,
@@ -25,6 +26,7 @@ var default_ololog_configure = {
       level = "",
       minVerbosity = 1,
       verbosity = 1,
+      enable = true,
       levelColor = {
         info: cyan,
         warn: yellow,
@@ -33,6 +35,9 @@ var default_ololog_configure = {
       }
     }
   ) => {
+    if (!enable) {
+      return [];
+    }
     const levelStr =
       level && (levelColor[level] || (s => s))(level.toUpperCase());
     if (verbosity <= minVerbosity) {
@@ -41,7 +46,9 @@ var default_ololog_configure = {
       } else {
         return lines;
       }
-    } else return [];
+    } else {
+      return [];
+    }
   }
 };
 //-----------------------------------------------------------------------------
@@ -59,6 +66,7 @@ var default_ololog_methods = {
       "Error: The parameter to setStatusBarText should be an array."
     );
     statusTextArray = arrayOfStatusLines;
+    renderStatusbar();
   },
   /**
    *
@@ -79,6 +87,7 @@ var default_ololog_methods = {
     } else {
       statusTextArray = [text];
     }
+    renderStatusbar();
   },
   /**
    *
@@ -88,6 +97,7 @@ var default_ololog_methods = {
   statusBarTextPop() {
     if (statusTextArray && Array.isArray(statusTextArray)) {
       statusTextArray.pop();
+      renderStatusbar();
     }
   },
   /**
@@ -105,13 +115,73 @@ var default_ololog_methods = {
    */
   minVerbosity(n) {
     return this.configure({ tag: { minVerbosity: n } });
+  },
+  /**
+   * Completely disables logging both scrollable and status bar
+   */
+  enable() {
+    g_enableStatusBar = true;
+    return this.configure({ tag: { enable: true } });
+  },
+  /**
+   * Completely enables logging both scrollable and status bar
+   */
+  disable() {
+    g_enableStatusBar = false;
+    return this.configure({ tag: { enable: false } });
+  },
+  /**
+   * Enables the status bar
+   */
+  enableStatusBar() {
+    g_enableStatusBar = true;
+    printStatusbar();
+  },
+  /**
+   * Disables the status bar
+   */
+  disableStatusBar() {
+    clearStatusBar();
+    g_enableStatusBar = false;
   }
 };
+//-----------------------------------------------------------------------------
+/**
+ * Clears the status bar text
+ */
+function clearStatusBar() {
+  if (g_enableStatusBar) {
+    for (let index = 0; index < linesToDelete; index++) {
+      cursor.up();
+      cursor.eraseLine();
+    }
+  }
+}
+//-----------------------------------------------------------------------------
+/**
+ * Renders the status bar text
+ */
+function printStatusbar() {
+  if (g_enableStatusBar) {
+    statusTextArray.forEach(l => {
+      let k = String.raw`${l}`;
+      k = k.replace(/\n/, "\\n");
+      k = k.substring(0, process.stdout.columns);
+      console.log(k);
+    });
+    linesToDelete = statusTextArray.length;
+  }
+}
+
+function renderStatusbar() {
+  clearStatusBar();
+  printStatusbar();
+}
 //-----------------------------------------------------------------------------
 var ololog = require("ololog").configure(default_ololog_configure);
 
 var defaultConfig = {
-  enableStatusBar: true,
+  g_enableStatusBar: true,
   ololog_configure: default_ololog_configure,
   ololog_methods: default_ololog_methods,
   initialStatusTextArray: [
@@ -131,35 +201,26 @@ module.exports = function(config = defaultConfig) {
   statusTextArray =
     config.initialStatusTextArray || defaultConfig.initialStatusTextArray;
 
-  let enableStatusBar = config.enableStatusBar;
-  if (enableStatusBar === undefined || enableStatusBar === null) {
-    enableStatusBar = defaultConfig.enableStatusBar;
+  g_enableStatusBar = config.g_enableStatusBar;
+  if (g_enableStatusBar === undefined || g_enableStatusBar === null) {
+    g_enableStatusBar = defaultConfig.g_enableStatusBar;
   }
 
   let minVerbosity = config.minVerbosity || defaultConfig.minVerbosity;
   let verbosity = config.verbosity || defaultConfig.verbosity;
 
-  if (enableStatusBar) {
-    log = log.configure({
-      "+render"(text) {
-        for (let index = 0; index < linesToDelete; index++) {
-          cursor.up();
-          cursor.eraseLine();
-        }
-        return text;
-      },
-      "render+"(text) {
-        statusTextArray.forEach(l => {
-          let k = String.raw`${l}`;
-          k = k.replace(/\n/, "\\n");
-          k = k.substring(0, process.stdout.columns);
-          console.log(k);
-        });
-        linesToDelete = statusTextArray.length;
-        return text;
-      }
-    });
-  }
+  log = log.configure({
+    "+render"(text) {
+      clearStatusBar();
+
+      return text;
+    },
+    "render+"(text) {
+      printStatusbar();
+
+      return text;
+    }
+  });
 
   log.methods(methods);
   log = log.minVerbosity(minVerbosity);
