@@ -53,7 +53,7 @@ log.statusBarTextPush(`Adding one line to the status bar`);
 log.statusBarTextPop(`Remove the last line from the status bar`);
 ```
 ## Enable and Disable
-You can enable/disable the status bar or both scrollable log and status bar.
+You can enable/disable the status bar or both scrollable log and status bar. See [examples/enable.js](examples/enable.js)
 
 ```javascript
 // Disables the status bar

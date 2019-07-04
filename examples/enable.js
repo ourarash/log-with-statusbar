@@ -1,5 +1,6 @@
 /**
- * Demonstrate how to use statusBarTextPush and statusBarTextPop functions to add/remove lines
+ * Demonstrate how to use statusBarTextPush and statusBarTextPop 
+ * functions to add/remove lines
  * To run:
  *  npm install progress-string
  * By: Ari Saif
