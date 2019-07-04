@@ -52,7 +52,7 @@ log.statusBarTextPush(`Adding one line to the status bar`);
 // Adds one line to the status bar (See examples/push_pop_demo.js)
 log.statusBarTextPop(`Remove the last line from the status bar`);
 ```
-## [Enable and Disable](#enable-disable) 
+## Enable and Disable
 You can enable/disable the status bar or both scrollable log and status bar.
 
 ```javascript
@@ -96,7 +96,7 @@ const log = require("log-with-statusbar")({
 ```
 
 ## Bonus: Verbosity
-Besides globally [enabling and disabling](#enable-disable) the log, you can attach a verbosity level to each scrollable log call. Each log call will print out its output only if the attached verbosity level is higher than the global minimum verbosity leve:
+Besides globally [enabling and disabling](#enable-and-Disable) the log, you can attach a verbosity level to each scrollable log call. Each log call will print out its output only if the attached verbosity level is higher than the global minimum verbosity leve:
 
 - Calling `log.verbosity(n).info("Test");` attaches verbosity level `n` to this call.
 - Calling `log.info("Test");` attaches verbosity the default verbosity level to this call.
