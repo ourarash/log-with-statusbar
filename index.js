@@ -11,9 +11,8 @@
 const ansi = require("ansi"),
   assert = require("assert"),
   cursor = ansi(process.stdout),
-  { cyan, yellow, red, dim, blue } = require("ansicolor"),
-  getCursorPosition = require("get-cursor-position"),
-  bullet = require("string.bullet");
+  { cyan, yellow, red, blue } = require("ansicolor"),
+  getCursorPosition = require("get-cursor-position");
 
 var g_curPos;
 
@@ -48,7 +47,7 @@ var default_ololog_configure = {
       level && (levelColor[level] || (s => s))(level.toUpperCase());
     if (verbosity <= minVerbosity) {
       if (level) {
-        return bullet(levelStr.padStart(6) + "  ", lines);
+        return [levelStr.padStart(6) + ":  " +  lines];
       } else {
         return lines;
       }
