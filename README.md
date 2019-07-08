@@ -10,8 +10,10 @@ You can also attach a verbosity level to each scrollable log call.
 - [x] Supports multiple non-scrollable status lines
 - [x] Based on [ololog](https://github.com/xpl/ololog). All features of ololog are available.
 
+Status bar on the bottom:
 ![Demo picture bottom](https://raw.githubusercontent.com/ourarash/log-with-statusbar/master/screenshot2.gif)
 
+Status bar on the top:
 ![Demo picture top](https://raw.githubusercontent.com/ourarash/log-with-statusbar/master/screenshot_top.gif)
 
 # Installation
