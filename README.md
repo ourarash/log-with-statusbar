@@ -44,7 +44,13 @@ setInterval(() => {
 
 # Examples
 
-Several examples are available in [examples](examples) folder
+Several examples are available in [examples](examples) folder:
+- [Simple demo](examples/simple_demo.js)
+- [Progress bar](examples/demo.js)
+- [Spinner](examples/spinner.js)
+- [Enable/Disable log and status bar](examples/enable.js)
+- [Push and Pop](examples/push_pop_demo.js)
+- [Verbosity](examples/verbose.js)
 
 # Other Functions
 ## Push and Pop

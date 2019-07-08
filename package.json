@@ -1,6 +1,6 @@
 {
   "name": "log-with-statusbar",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "A light weight logger with a status bar on the bottom or the top that does not disappear with scrolling",
   "main": "index.js",
   "scripts": {
