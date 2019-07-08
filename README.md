@@ -52,7 +52,7 @@ You can add or remove lines to the status bar
 // Adds one line to the status bar (See examples/push_pop_demo.js)
 log.statusBarTextPush(`Adding one line to the status bar`);
 
-// Adds one line to the status bar (See examples/push_pop_demo.js)
+// Removes one line from the status bar (See examples/push_pop_demo.js)
 log.statusBarTextPop(`Remove the last line from the status bar`);
 ```
 ## Enable and Disable
