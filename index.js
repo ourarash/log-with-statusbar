@@ -12,11 +12,17 @@ const ansi = require("ansi"),
   assert = require("assert"),
   cursor = ansi(process.stdout),
   { cyan, yellow, red, dim, blue } = require("ansicolor"),
+  getCursorPosition = require("get-cursor-position"),
   bullet = require("string.bullet");
+
+var g_curPos;
 
 var statusTextArray;
 var linesToDelete = 0;
 var g_enableStatusBar = true;
+var g_position = "bottom";
+var g_disableInput = true;
+
 //-----------------------------------------------------------------------------
 var default_ololog_configure = {
   locate: false,
@@ -151,9 +157,18 @@ var default_ololog_methods = {
  */
 function clearStatusBar() {
   if (g_enableStatusBar) {
-    for (let index = 0; index < linesToDelete; index++) {
-      cursor.up();
-      cursor.eraseLine();
+    if (g_position === "bottom") {
+      for (let index = 0; index < linesToDelete; index++) {
+        cursor.up();
+        cursor.eraseLine();
+      }
+    } else if (g_position === "top") {
+      g_curPos = getCursorPosition.sync();
+      cursor.goto(1, 1);
+      for (let index = 0; index < linesToDelete; index++) {
+        cursor.eraseLine();
+        cursor.down();
+      }
     }
   }
 }
@@ -161,14 +176,28 @@ function clearStatusBar() {
 /**
  * Renders the status bar text
  */
-function printStatusbar() {
+function printStatusbar(curPos) {
   if (g_enableStatusBar) {
-    statusTextArray.forEach(l => {
-      let k = String.raw`${l}`;
-      k = k.replace(/\n/, "\\n");
-      k = k.substring(0, process.stdout.columns);
-      console.log(k);
-    });
+    if (g_position === "bottom") {
+      statusTextArray.forEach(l => {
+        let k = String.raw`${l}`;
+        k = k.replace(/\n/, "\\n");
+        k = k.substring(0, process.stdout.columns);
+        console.log(k);
+      });
+    } else if (g_position === "top") {
+      cursor.goto(1, 1);
+      statusTextArray.forEach(l => {
+        let k = String.raw`${l}`;
+        k = k.replace(/\n/, "\\n");
+        k = k.substring(0, process.stdout.columns);
+        console.log(k);
+      });
+
+      if (g_curPos) {
+        cursor.goto(1, g_curPos.row);
+      }
+    }
     linesToDelete = statusTextArray.length;
   }
 }
@@ -181,14 +210,16 @@ function renderStatusbar() {
 var ololog = require("ololog").configure(default_ololog_configure);
 
 var defaultConfig = {
-  g_enableStatusBar: true,
+  enableStatusBar: true,
   ololog_configure: default_ololog_configure,
   ololog_methods: default_ololog_methods,
   initialStatusTextArray: [
     `Call log.setStatusBarText(["Your Text"]) to set this line.`
   ],
   minVerbosity: 1, //Minimum verbosity level
-  verbosity: 1 //Default verbosity level
+  verbosity: 1, //Default verbosity level
+  position: "bottom", // top or bottom
+  disableInput: false
 };
 //-----------------------------------------------------------------------------
 module.exports = function(config = defaultConfig) {
@@ -201,23 +232,51 @@ module.exports = function(config = defaultConfig) {
   statusTextArray =
     config.initialStatusTextArray || defaultConfig.initialStatusTextArray;
 
-  g_enableStatusBar = config.g_enableStatusBar;
+  g_enableStatusBar = config.enableStatusBar;
   if (g_enableStatusBar === undefined || g_enableStatusBar === null) {
-    g_enableStatusBar = defaultConfig.g_enableStatusBar;
+    g_enableStatusBar = defaultConfig.enableStatusBar;
   }
 
   let minVerbosity = config.minVerbosity || defaultConfig.minVerbosity;
   let verbosity = config.verbosity || defaultConfig.verbosity;
+  g_position = config.position || defaultConfig.position;
+
+  g_disableInput = config.disableInput;
+  if (g_disableInput === undefined || g_disableInput === null) {
+    g_disableInput = defaultConfig.disableInput;
+  }
+  // We disable input so that pressing keys doesn't affect the displayed text
+  // Pressing keys while displaying status bar disturbs the output specially when showing
+  //the status bar on the top
+  if (g_disableInput) {
+    var keypress = require("keypress");
+    keypress(process.stdin);
+    process.stdin.on("keypress", function(ch, key) {
+      if (key && key.ctrl && key.name == "c") {
+        process.exit();
+        process.exi;
+      }
+    });
+
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+  }
 
   log = log.configure({
     "+render"(text) {
-      clearStatusBar();
-
+      if (g_position === "bottom") {
+        clearStatusBar();
+      } else if (g_position === "top") {
+      }
       return text;
     },
     "render+"(text) {
-      printStatusbar();
-
+      if (g_position === "bottom") {
+        printStatusbar();
+      } else if (g_position === "top") {
+        clearStatusBar();
+        printStatusbar();
+      }
       return text;
     }
   });

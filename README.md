@@ -1,6 +1,6 @@
 # log-with-statusbar
 
-A light weight logger with a status bar on the bottom that does not disappear with scrolling.
+A light weight logger with a status bar on the bottom or the top that does not disappear with scrolling.
 
 You can also attach a verbosity level to each scrollable log call.
 
@@ -10,9 +10,12 @@ You can also attach a verbosity level to each scrollable log call.
 - [x] Supports multiple non-scrollable status lines
 - [x] Based on [ololog](https://github.com/xpl/ololog). All features of ololog are available.
 
-![Demo picture](https://raw.githubusercontent.com/ourarash/log-with-statusbar/master/screenshot2.gif)
+![Demo picture bottom](https://raw.githubusercontent.com/ourarash/log-with-statusbar/master/screenshot2.gif)
 
-# Install
+![Demo picture top](https://raw.githubusercontent.com/ourarash/log-with-statusbar/master/screenshot_top.gif)
+
+# Installation
+Install with npm:
 
 ```bash
 npm install log-with-statusbar
@@ -91,7 +94,17 @@ The following settings are for the status bar behavior:
 ```javascript
 const log = require("log-with-statusbar")({
   initialStatusTextArray: [`Please wait...`],
-  enableStatusBar: true
+  enableStatusBar: true,
+  position: "top"  // Default value is "bottom"
+});
+```
+## Enable/Disable Input Key Press
+Pushing keys while showing the status bar might disturb the output. You can disable input keys except for CTRL+C using `disableInput`, which is set to false by default:
+
+```javascript
+const log = require("log-with-statusbar")({
+  initialStatusTextArray: [`Please wait...`],
+  disableInput: true
 });
 ```
 

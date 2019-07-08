@@ -1,7 +1,7 @@
 {
   "name": "log-with-statusbar",
-  "version": "1.1.7",
-  "description": "A light weight logger with a status bar on the bottom that does not disappear with scrolling",
+  "version": "1.1.8",
+  "description": "A light weight logger with a status bar on the bottom or the top that does not disappear with scrolling",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,7 @@
     "scroll",
     "split",
     "screen",
+    "progress",
     "console"
   ],
   "author": "Ari Saif",
@@ -28,6 +29,8 @@
   "dependencies": {
     "ansi": "^0.3.1",
     "ansicolor": "^1.1.89",
+    "get-cursor-position": "^1.0.5",
+    "keypress": "^0.2.1",
     "ololog": "^1.1.131",
     "progress-string": "^1.2.2",
     "string.bullet": "^1.0.12"
