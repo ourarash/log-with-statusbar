@@ -13,6 +13,7 @@ const ansi = require("ansi"),
   cursor = ansi(process.stdout),
   { cyan, yellow, red, blue } = require("ansicolor"),
   getCursorPosition = require("get-cursor-position");
+const spinners = Object.assign({}, require('./spinners.json'));
 
 var g_curPos;
 
@@ -148,6 +149,10 @@ var default_ololog_methods = {
   disableStatusBar() {
     clearStatusBar();
     g_enableStatusBar = false;
+  },
+
+  getSpinners(){
+    return spinners;
   }
 };
 //-----------------------------------------------------------------------------

@@ -6,14 +6,13 @@
  */
 
 // Credit for the spinner frames: https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json
-const spinners = Object.assign({}, require('../spinners.json'));
-
 var log = require("../index.js")({
   ololog_configure: {
     locate: false,
     tag: true
   }
 });
+let spinners = log.getSpinners();
 require("ansicolor").nice;
 
 let i = 0;

@@ -79,7 +79,14 @@ log = log.disable();
 // Completely enables logging both scrollable and status bar
 log = log.enable();
 ```
+## Spinner
+You can use create pre-designed spinners. credit to [cli-spinners](https://github.com/sindresorhus/cli-spinners). See [Spinner](examples/spinner.js) example and [spinners.json](spinners.json) file.
 
+```javascript
+// Returns an object created from the spinners.json file
+let spinners = log.getSpinners();
+
+```
 # Configurations
 
 If you just want to use the status bar and also setup ololog parameters, you can set the following:
