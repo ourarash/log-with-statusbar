@@ -1,6 +1,6 @@
 {
   "name": "log-with-statusbar",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "A light weight logger with a status bar on the bottom or the top that does not disappear with scrolling",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
   "dependencies": {
     "ansi": "^0.3.1",
     "ansicolor": "^1.1.89",
-    "get-cursor-position": "^1.0.5",
+    "get-cursor-position": "git+https://github.com/ourarash/get-cursor-position.git",
     "keypress": "^0.2.1",
     "ololog": "^1.1.131",
     "progress-string": "^1.2.2"
