@@ -13,7 +13,7 @@ const ansi = require("ansi"),
   cursor = ansi(process.stdout),
   { cyan, yellow, red, blue } = require("ansicolor"),
   getCursorPosition = require("get-cursor-position");
-const spinners = Object.assign({}, require('./spinners.json'));
+const spinners = Object.assign({}, require("./spinners.json"));
 
 var g_curPos;
 
@@ -48,7 +48,7 @@ var default_ololog_configure = {
       level && (levelColor[level] || (s => s))(level.toUpperCase());
     if (verbosity <= minVerbosity) {
       if (level) {
-        return [levelStr.padStart(6) + ":  " +  lines];
+        return [levelStr.padStart(6) + ":  " + lines];
       } else {
         return lines;
       }
@@ -151,7 +151,7 @@ var default_ololog_methods = {
     g_enableStatusBar = false;
   },
 
-  getSpinners(){
+  getSpinners() {
     return spinners;
   }
 };

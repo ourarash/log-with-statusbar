@@ -4,7 +4,8 @@ A light weight logger with a status bar on the bottom or the top that does not d
 
 You can also attach a verbosity level to each scrollable log call.
 
-[![NPM](https://badge.fury.io/js/log-with-statusbar.svg)](https://www.npmjs.com/package/log-with-statusbar)
+  [![NPM](https://badge.fury.io/js/log-with-statusbar.svg)](https://www.npmjs.com/package/log-with-statusbar)
+  [![NPM Downloads][downloadst-image]][downloads-url]
 
 - [x] Prints system log while showing a status line message at the bottom without scrolling
 - [x] Supports multiple non-scrollable status lines
@@ -187,3 +188,7 @@ log.info("This will print, (1 <= 1000) = true");
 log = log.verbosity(1600);
 log.info("This won't print, (1600 <= 1500) = false");
 ```
+
+[downloads-image]: https://img.shields.io/npm/dm/log-with-statusbar.svg
+[downloadst-image]: https://img.shields.io/npm/dt/log-with-statusbar.svg
+[downloads-url]: https://npmjs.org/package/log-with-statusbar
