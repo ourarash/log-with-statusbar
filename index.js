@@ -30,7 +30,7 @@ var default_ololog_configure = {
     lines,
     {
       level = "",
-      minVerbosity = 1,
+      maxVerbosity = 1,
       verbosity = 1,
       enable = true,
       levelColor = {
@@ -46,9 +46,17 @@ var default_ololog_configure = {
     }
     const levelStr =
       level && (levelColor[level] || (s => s))(level.toUpperCase());
-    if (verbosity <= minVerbosity) {
+    if (verbosity <= maxVerbosity) {
       if (level) {
-        return [levelStr.padStart(6) + ":  " + lines];
+        // Add level only to the first line
+        let retVal = lines.map((l, i) => {
+          if (i === 0) {
+            return levelStr.padStart(6) + ":  " + l;
+          } else {
+            return l;
+          }
+        });
+        return retVal;
       } else {
         return lines;
       }
@@ -108,7 +116,7 @@ var default_ololog_methods = {
   },
   /**
    * Sets the default verbosity
-   * We only print if verbosity is less than or equal minVerbosity
+   * We only print if verbosity is less than or equal maxVerbosity
    * @param {Number} n
    */
   verbosity(n) {
@@ -116,11 +124,11 @@ var default_ololog_methods = {
   },
   /**
    * Sets the minimum verbosity
-   * We only print if verbosity is less than or equal minVerbosity
+   * We only print if verbosity is less than or equal maxVerbosity
    * @param {Number} n
    */
-  minVerbosity(n) {
-    return this.configure({ tag: { minVerbosity: n } });
+  maxVerbosity(n) {
+    return this.configure({ tag: { maxVerbosity: n } });
   },
   /**
    * Completely disables logging both scrollable and status bar
@@ -220,7 +228,7 @@ var defaultConfig = {
   initialStatusTextArray: [
     `Call log.setStatusBarText(["Your Text"]) to set this line.`
   ],
-  minVerbosity: 1, //Minimum verbosity level
+  maxVerbosity: 1, //Minimum verbosity level
   verbosity: 1, //Default verbosity level
   position: "bottom", // top or bottom
   disableInput: false
@@ -241,7 +249,7 @@ module.exports = function(config = defaultConfig) {
     g_enableStatusBar = defaultConfig.enableStatusBar;
   }
 
-  let minVerbosity = config.minVerbosity || defaultConfig.minVerbosity;
+  let maxVerbosity = config.maxVerbosity || defaultConfig.maxVerbosity;
   let verbosity = config.verbosity || defaultConfig.verbosity;
   g_position = config.position || defaultConfig.position;
 
@@ -286,7 +294,7 @@ module.exports = function(config = defaultConfig) {
   });
 
   log.methods(methods);
-  log = log.minVerbosity(minVerbosity);
+  log = log.maxVerbosity(maxVerbosity);
   log = log.verbosity(verbosity);
 
   return log;

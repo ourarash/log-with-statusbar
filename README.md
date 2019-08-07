@@ -125,19 +125,19 @@ const log = require("log-with-statusbar")({
 ```
 
 ## Bonus: Verbosity
-Besides globally [enabling and disabling](#enable-and-Disable) the log, you can attach a verbosity level to each scrollable log call. Each log call will print out its output only if the attached verbosity level is higher than the global minimum verbosity leve:
+Besides globally [enabling and disabling](#enable-and-Disable) the log, you can attach a verbosity level to each scrollable log call. Each log call will print out its output only if the attached verbosity level is less than or equal to the global minimum verbosity level:
 
 - Calling `log.verbosity(n).info("Test");` attaches verbosity level `n` to this call.
 - Calling `log.info("Test");` attaches verbosity the default verbosity level to this call.
-- Calling `log = log.minVerbosity(1000);` will change the global minimum verbosity level
+- Calling `log = log.maxVerbosity(1000);` will change the global maximum verbosity level
 
 Below is an example:
 
 ```javascript
-// We only print if verbosity is less than or equal minVerbosity
+// We only print if verbosity is less than or equal maxVerbosity
 
 var log = require("log-with-statusbar")({
-  minVerbosity: 1, //Minimum verbosity level
+  maxVerbosity: 1, //maximum verbosity level
   verbosity: 1, //Default verbosity level
   enableStatusBar: false
 });
@@ -150,7 +150,7 @@ log.verbosity(3).info("Even less important line 2");
 console.log("\nLet's be more verbose!\n");
 
 // Let's be more verbose: The lines with verbosity 2 and 3 will now print
-log = log.minVerbosity(3);
+log = log.maxVerbosity(3);
 log("This prints because (1 <= 3)= true");
 log.verbosity(2).info("Less important line 1");
 log.verbosity(3).info("Even less important line 2");
@@ -160,12 +160,12 @@ And here is a more complicated example:
 
 ```javascript
 var log = require("log-with-statusbar")({
-  minVerbosity: 1, //Minimum verbosity level
+  maxVerbosity: 1, //maximum verbosity level
   verbosity: 1, //Default verbosity level
   enableStatusBar: false
 });
 
-// We only print if verbosity is less than or equal minVerbosity
+// We only print if verbosity is less than or equal maxVerbosity
 log("This prints using default verbosity level: (1 <= 1)= true");
 
 // Attaching verbosity level 1
@@ -175,8 +175,8 @@ log.verbosity(1).info("This will print, (1 <= 1) = true");
 log.verbosity(17).info("This won't print, (17 <= 1) = false");
 
 //Let's be more verbose now!
-log.info("Changing minVerbosity to 1000");
-log = log.minVerbosity(1000);
+log.info("Changing maxVerbosity to 1000");
+log = log.maxVerbosity(1000);
 log.verbosity(17).info("This will print, (17 <= 1000) = ture");
 log.verbosity(12).info("This will print, (12 <= 1000) = true");
 log.verbosity(1).info("This will print, (1 <= 1000) = true");
