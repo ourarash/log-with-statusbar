@@ -123,11 +123,21 @@ var default_ololog_methods = {
     return this.configure({ tag: { verbosity: n } });
   },
   /**
-   * Sets the minimum verbosity
+   * Sets the maximum verbosity
    * We only print if verbosity is less than or equal maxVerbosity
    * @param {Number} n
    */
   maxVerbosity(n) {
+    return this.configure({ tag: { maxVerbosity: n } });
+  },
+  /**
+   * This function is kept only for compatibility. minVerbosity is deprecated.
+   * It now only changes maxVerbosity
+   * Sets the maximum verbosity 
+   * We only print if verbosity is less than or equal maxVerbosity
+   * @param {Number} n
+   */
+  minVerbosity(n) {
     return this.configure({ tag: { maxVerbosity: n } });
   },
   /**
@@ -228,7 +238,7 @@ var defaultConfig = {
   initialStatusTextArray: [
     `Call log.setStatusBarText(["Your Text"]) to set this line.`
   ],
-  maxVerbosity: 1, //Minimum verbosity level
+  maxVerbosity: 1, //maximum verbosity level
   verbosity: 1, //Default verbosity level
   position: "bottom", // top or bottom
   disableInput: false
