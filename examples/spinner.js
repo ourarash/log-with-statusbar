@@ -26,7 +26,7 @@ log.configure({
 log.info(`-----------------------------------------------------------------`);
 var date = new Date();
 log(date);
-log(`Generating randome numbers`);
+log(`Generating random numbers`);
 log.info(`-----------------------------------------------------------------`);
 
 setInterval(() => {
