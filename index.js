@@ -12,7 +12,7 @@ const ansi = require("ansi"),
   assert = require("assert"),
   cursor = ansi(process.stdout),
   { cyan, yellow, red, blue } = require("ansicolor"),
-  getCursorPosition = require("get-cursor-position");
+  getCursorPosition = require("cursor-pos");
 const spinners = Object.assign({}, require("./spinners.json"));
 
 var g_curPos;
@@ -177,7 +177,7 @@ var default_ololog_methods = {
 /**
  * Clears the status bar text
  */
-function clearStatusBar() {
+async function clearStatusBar() {
   if (g_enableStatusBar) {
     if (g_position === "bottom") {
       for (let index = 0; index < linesToDelete; index++) {
@@ -185,7 +185,7 @@ function clearStatusBar() {
         cursor.eraseLine();
       }
     } else if (g_position === "top") {
-      g_curPos = getCursorPosition.sync();
+      g_curPos = await getCursorPosition();
       cursor.goto(1, 1);
       for (let index = 0; index < linesToDelete; index++) {
         cursor.eraseLine();
